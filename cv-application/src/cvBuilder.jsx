@@ -2,19 +2,42 @@ import './cvBuilder.css';
 import { useState } from 'react';
 
 function Header() {
-    // const headerFrame = 
-
-    const [header, setHeader] = useState({
-        name: '',
-        phone: '',
-        email: '',
-        address: '',
-        linkedin: '',
-        github: ''
+    const [header, setHeader] = useState(() => {
+        return {
+            name: {
+                placeholder: 'Full Name',
+                required: true,
+                value: ''
+            },
+            phone: {
+                placeholder: 'Phone Number',
+                required: true,
+                value: ''
+            },
+            email: {
+                placeholder: 'Email',
+                required: true,
+                value: ''
+            },
+            address: {
+                placeholder: 'Address',
+                required: true,
+                value: ''
+            },
+            linkedin: {
+                placeholder: 'LinkedIn',
+                required: true,
+                value: ''
+            },
+            github: {
+                placeholder: 'Github',
+                required: false,
+                value: ''
+            }
+        };
     }); 
 
-    console.log('why');
-    console.table(header)
+
 
     function updateHeader(e) {
         e.preventDefault;
@@ -23,23 +46,26 @@ function Header() {
         const validField = Object.keys(header).includes(property);
         if (!validField) return;
         setHeader(prevHeader => {
-            prevHeader[property] = value;
-            return {...prevHeader}
+            prevHeader[property]['value'] = value;
+            return prevHeader
         })
     }
 
     return (
         <>
             <p>Resume Header</p>
-            <input placeholder='Full Name' name ='name' onChange={updateHeader} required></input>
-            <input placeholder='Phone Number' name ='phone' onChange={updateHeader} required></input>
-            <input placeholder='Email' type='email' name ='email' onChange={updateHeader} required></input>
-            <input placeholder='Address' name ='address' onChange={updateHeader} required></input>
-            <input placeholder='LinkedIn' name ='linkedin' onChange={updateHeader} type='url'></input>
-            <input placeholder='Github' name ='github' onChange={updateHeader}  type='url'></input>
-            {/* need to figure out how to separate the below */}
+                {Object.keys(header).map(field =>
+                    <input 
+                        placeholder={header[field]['placeholder']}
+                        key={field}
+                        name={field}
+                        onChange={updateHeader}
+                        {...header[field]['required'] && 'required'}
+                        >
+                    </input>
+                )}
             <div>
-                <p>Does this work{header.name}</p>
+                <p>Does this work{header.name.value}</p>
             </div>
         </>
     )
