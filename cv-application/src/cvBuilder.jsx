@@ -1,84 +1,87 @@
-import './cvBuilder.css';
 import { useState } from 'react';
+import './cvBuilder.css';
 
-function Header() {
-    const [header, setHeader] = useState(() => {
-        return {
-            name: {
-                placeholder: 'Full Name',
-                required: true,
-                value: ''
-            },
-            phone: {
-                placeholder: 'Phone Number',
-                required: true,
-                value: ''
-            },
-            email: {
-                placeholder: 'Email',
-                required: true,
-                value: ''
-            },
-            address: {
-                placeholder: 'Address',
-                required: true,
-                value: ''
-            },
-            linkedin: {
-                placeholder: 'LinkedIn',
-                required: true,
-                value: ''
-            },
-            github: {
-                placeholder: 'Github',
-                required: false,
-                value: ''
-            }
-        };
-    }); 
-
-
+export default function HeaderForm() {
+    const [shouldRenderInput, setShouldRenderInput] = useState(true);
+    const [header, setHeader] = useState(() => ({
+        name: {
+            placeholder: 'Full Name',
+            required: true,
+            value: ''
+        },
+        phone: {
+            placeholder: 'Phone Number',
+            required: true,
+            value: ''
+        },
+        email: {
+            placeholder: 'Email',
+            required: true,
+            value: ''
+        },
+        address: {
+            placeholder: 'Address',
+            required: true,
+            value: ''
+        },
+        linkedin: {
+            placeholder: 'LinkedIn',
+            required: true,
+            value: ''
+        },
+        github: {
+            placeholder: 'Github',
+            required: false,
+            value: ''
+        }
+    }))
+     
 
     function updateHeader(e) {
-        e.preventDefault;
-        const property = e.target.name;
+        e.preventDefault();``
         const value = e.target.value;
-        const validField = Object.keys(header).includes(property);
-        if (!validField) return;
-        setHeader(prevHeader => {
-            prevHeader[property]['value'] = value;
-            return prevHeader
-        })
+        const field = e.target.id;
+        setHeader({...header, [field]: {
+            ...header[field], value: value
+        }});
     }
 
-    return (
-        <>
-            <p>Resume Header</p>
-                {Object.keys(header).map(field =>
-                    <input 
-                        placeholder={header[field]['placeholder']}
-                        key={field}
-                        name={field}
-                        onChange={updateHeader}
-                        {...header[field]['required'] && 'required'}
-                        >
-                    </input>
-                )}
-            <div>
-                <p>Does this work{header.name.value}</p>
-            </div>
-        </>
-    )
+    function handleEdit(e) {
+        e.preventDefault();
+        setShouldRenderInput(!shouldRenderInput);
+    }
+
+    const shouldShowSubmission = !shouldRenderInput;
     
-
-}
-
-export default function ResumeForm() {
     return (
         <div>
-            <form>
-                <Header />
-            </form>
+            <p>Resume Header</p>
+                {shouldRenderInput && 
+                    <form>
+                        {Object.keys(header).map(field => 
+                            <input 
+                                placeholder={header[field]['placeholder']}
+                                key={field}
+                                id={field}
+                                {...header[field]['required'] 
+                                    && {required: true}}
+                                onChange={updateHeader}
+                                >
+                            </input>
+                        )}
+                        <button onClick={handleEdit}>
+                            Submit
+                        </button>
+                    </form>
+                }
+                {shouldShowSubmission && 
+                    <div>
+                        {Object.keys(header).map(field => 
+                            <p key={field}>{header[field]['value']}</p>
+                        )}
+                        <button onClick={handleEdit}>Edit</button>
+                    </div>
+                }
         </div>
     )
 }

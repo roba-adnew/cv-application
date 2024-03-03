@@ -1,9 +1,10 @@
 form {
     display: flex;
     flex-direction: column;
-    padding: 5px
 }
 
 input {
     padding: 5px;
+    width: 100px;
+    height: 20px
 }

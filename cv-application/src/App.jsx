@@ -1,11 +1,11 @@
 import './App.css';
-import ResumeForm from './cvBuilder.jsx';
+import HeaderForm from './cvBuilder.jsx';
 
 function App() {
   return (
     <>
       <div id='app'>
-        <ResumeForm />
+        <HeaderForm />
       </div>
       
     </>
