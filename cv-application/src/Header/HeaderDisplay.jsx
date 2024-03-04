@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 function HeaderDisplay({ headerData }) {
     return (
-        <div>
+        <div id="headerDisplay">
             <h1 id='name'>{headerData['name']}</h1>
             <div id="headerInfo">
                 {Object.keys(headerData).map(
@@ -15,8 +15,9 @@ function HeaderDisplay({ headerData }) {
                         <p 
                         key={field} 
                         id={field} >
-                            {headerData[field]}
+                            &#183; {headerData[field]} &#183; 
                         </p>
+                        
                     }
                 )}
                 {Object.keys(headerData).map(
@@ -28,7 +29,7 @@ function HeaderDisplay({ headerData }) {
                         <a  
                         key={field}
                         href={headerData[field]}>
-                            {field + ' '} 
+                            &#183; {field}  &#183; 
                         </a>
                     }
                 )}

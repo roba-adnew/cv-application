@@ -65,6 +65,7 @@ function HeaderInput({
                         onChange={updateHeader}
                         >
                     </input>
+                    
                 )}
                 <button onClick={(e) => {
                     handleEdit(e)
@@ -84,9 +85,9 @@ function SubmittedInputDisplay({
 
     return (
         <>
-            <div>
+            <div id="inputDisplay">
                 {Object.keys(header).map(field => 
-                    <p key={field}>{header[field]}</p>
+                    <p className="display" key={field}>{header[field]}</p>
                 )}
                 <button onClick={handleEdit}>Edit</button>
             </div>
@@ -107,8 +108,8 @@ function HeaderForm({ submitHandler }) {
     // }
     const [header, setHeader] = useState(() => ({
         name: 'Roba Adnew',
-        phone: '240-602-0279',
         email: 'roba.adnew@gmail.com',
+        phone: '240-602-0279',
         city: 'Brooklyn, NY',
         LinkedIn: 'https://www.linkedin.com/in/roba-adnew/',
         Github: 'https://github.com/roba-adnew'
@@ -131,7 +132,7 @@ function HeaderForm({ submitHandler }) {
     
     return (
         <div>
-            <h3>Resume Header</h3>
+            <h3>Header</h3>
                 {shouldRenderForm && 
                 <HeaderInput 
                     header={header}
