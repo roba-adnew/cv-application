@@ -1,3 +1,5 @@
+/* fontPT x (4/3) = font px */
+
 form {
     display: flex;
     flex-direction: column;
@@ -7,4 +9,8 @@ input {
     padding: 5px;
     width: 100px;
     height: 20px
+}
+
+.headerInfo {
+    font-size: 12px;
 }

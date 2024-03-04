@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import './HeaderForm.css';
+import './Header.css';
 
 function HeaderInput({ 
     header, 
     updateHeader,
-    shouldDisplay, 
     handleEdit, 
     submitHandler}) { 
     const tagAttributes = 
@@ -15,27 +14,27 @@ function HeaderInput({
                 required: true,
                 type: 'text'
             },
-            phone: {
-                placeholder: 'Phone Number',
-                required: true,
-                type: 'text'
-            },
             email: {
                 placeholder: 'Email',
                 required: true,
                 type: 'email'
             },
-            address: {
+            phone: {
+                placeholder: 'Phone Number',
+                required: true,
+                type: 'text'
+            },
+            city: {
                 placeholder: 'Address',
                 required: true,
                 type: 'text'
             },
-            linkedin: {
+            LinkedIn: {
                 placeholder: 'LinkedIn',
                 required: true,
                 type: 'url'
             },
-            github: {
+            Github: {
                 placeholder: 'Github',
                 required: false,
                 type: 'url'
@@ -53,61 +52,56 @@ function HeaderInput({
     
     return (
         <>
-        {shouldDisplay && 
-                <form
-                >
-                    {Object.keys(header).map(field => 
-                        <input 
-                            key={field}
-                            id={field}
-                            placeholder={tagAttributes[field]['placeholder']}
-                            type={tagAttributes[field]['placeholder']}
-                            {...tagAttributes[field]['required'] 
-                                && {required: true}}
-                            value={header[field]}
-                            onChange={updateHeader}
-                            >
-                        </input>
-                    )}
-                    <button onClick={(e) => {
-                        handleEdit(e)
-                        submitHandler(header)
-                    }}>
-                        Submit
-                    </button>
-                </form>
-            }
+            <form>
+                {Object.keys(header).map(field => 
+                    <input 
+                        key={field}
+                        id={field}
+                        placeholder={tagAttributes[field]['placeholder']}
+                        type={tagAttributes[field]['placeholder']}
+                        {...tagAttributes[field]['required'] 
+                            && {required: true}}
+                        value={header[field]}
+                        onChange={updateHeader}
+                        >
+                    </input>
+                )}
+                <button onClick={(e) => {
+                    handleEdit(e)
+                    submitHandler(header)
+                }}>
+                    Submit
+                </button>
+            </form>
         </>
     )
 }
 
 function SubmittedInputDisplay({
     header, 
-    handleEdit, 
-    shouldDisplay
+    handleEdit
 }) {
 
     return (
         <>
-            {shouldDisplay && 
-                    <div>
-                        {Object.keys(header).map(field => 
-                            <p key={field}>{header[field]}</p>
-                        )}
-                        <button onClick={handleEdit}>Edit</button>
-                    </div>
-                }
+            <div>
+                {Object.keys(header).map(field => 
+                    <p key={field}>{header[field]}</p>
+                )}
+                <button onClick={handleEdit}>Edit</button>
+            </div>
+                
         </>
     )
 }
 
 function HeaderForm({ submitHandler }) {
-    const [shouldRenderInput, setShouldRenderInput] = useState(true);
+    const [shouldRenderForm, setShouldRenderForm] = useState(true);
     // {
     //     name: '',
     //     phone: '',
     //     email: '',
-    //     address: '',
+    //     city: '',
     //     linkedin: '',
     //     github: ''
     // }
@@ -115,9 +109,9 @@ function HeaderForm({ submitHandler }) {
         name: 'Roba Adnew',
         phone: '240-602-0279',
         email: 'roba.adnew@gmail.com',
-        address: '260 Saint James Pl, Brooklyn, NY, 11238',
-        linkedin: 'https://www.linkedin.com/in/roba-adnew/',
-        github: 'https://github.com/roba-adnew'
+        city: 'Brooklyn, NY',
+        LinkedIn: 'https://www.linkedin.com/in/roba-adnew/',
+        Github: 'https://github.com/roba-adnew'
     }))
 
     
@@ -130,26 +124,29 @@ function HeaderForm({ submitHandler }) {
 
     function handleEdit(e) {
         e.preventDefault();
-        setShouldRenderInput(!shouldRenderInput);
+        setShouldRenderForm(!shouldRenderForm);
     }
-    const shouldShowSubmission = !shouldRenderInput;
+    const shouldShowSubmission = !shouldRenderForm;
 
     
     return (
         <div>
-            <p>Resume Header</p>
+            <h3>Resume Header</h3>
+                {shouldRenderForm && 
                 <HeaderInput 
                     header={header}
                     updateHeader={updateHeader} 
-                    shouldDisplay={shouldRenderInput}
+                    shouldDisplay={shouldRenderForm}
                     handleEdit={handleEdit}
                     submitHandler={submitHandler}
-                />
+                />}
+                
+                {shouldShowSubmission && 
                 <SubmittedInputDisplay 
                     header={header}
                     shouldDisplay={shouldShowSubmission}
                     handleEdit={handleEdit}
-                />
+                />}
                 
         </div>
     )
@@ -159,13 +156,11 @@ HeaderForm.propTypes = { submitHandler: PropTypes.func }
 HeaderInput.propTypes = {
     header: PropTypes.object,
     updateHeader: PropTypes.func,
-    shouldDisplay: PropTypes.bool,
     handleEdit: PropTypes.func,
     submitHandler: PropTypes.func
 }
 SubmittedInputDisplay.propTypes = {
     header: PropTypes.object,
-    shouldDisplay: PropTypes.bool,
     handleEdit: PropTypes.func
 }
 
