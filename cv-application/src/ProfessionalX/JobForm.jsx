@@ -29,15 +29,8 @@ import PropTypes from 'prop-types'
 // function handleEdit() {setShouldRenderForm(!shouldRenderForm)}
 
 
-function JobInput({ id, shouldRenderForm = true }) {
-    const [job, setJob] = useState(() => ({
-            id: id,
-            company: '',
-            role: '',
-            startDate: '',
-            endDate: '',
-            feats: []
-    }))
+function JobInput({ job, updateJob, switchDisplay }) {
+    
 
     const tagAttributes = {
         company: 'Company name',
@@ -47,6 +40,48 @@ function JobInput({ id, shouldRenderForm = true }) {
         feats: 'Describe your accomplishments',
     }
 
+    return (
+        <form>
+            <div>
+                {Object.keys(tagAttributes).map((field) => 
+                    <input 
+                        key={job.id}
+                        id={field}
+                        type={field.includes('Date') ? 'date' : 'text'}
+                        placeholder={tagAttributes[field]}
+                        onChange={(e) => updateJob(e)}
+                    ></input>
+                )}  
+                <button onClick={switchDisplay}>
+                    Submit
+                </button>
+            </div>
+        </form>
+    ) 
+}
+
+function JobInputDisplay({ job, switchDisplay }) {
+    return (
+        <div id="jobDisplay">
+            {Object.keys(job).map(field => 
+                field !== 'id' &&
+                <p className="display" key={field}>{job[field]}</p>
+            )}
+            <button onClick={switchDisplay}>Edit</button>
+        </div>
+    )
+}
+
+function JobForm() {
+    const [job, setJob] = useState(() => ({
+        id: uuidv4(),
+        company: '',
+        role: '',
+        startDate: '',
+        endDate: '',
+        feats: []
+    }))
+    const [shouldRenderForm, setShouldRenderForm] = useState(true)
 
     function updateJob(e) {
         e.preventDefault();
@@ -55,34 +90,37 @@ function JobInput({ id, shouldRenderForm = true }) {
         setJob({...job, [field]: value});
     }
 
-    function handleEdit() { return shouldRenderForm}
+    function switchDisplay() {setShouldRenderForm(!shouldRenderForm)}
+
+    const shouldRenderDisplay = !shouldRenderForm;
 
     return (
-        <form>
-            <div>
-                {shouldRenderForm &&  
-                    <>
-                    {Object.keys(tagAttributes).map((field) => 
-                        <input 
-                            key={job.id}
-                            id={field}
-                            type={field.includes('Date') ? 'date' : 'text'}
-                            placeholder={tagAttributes[field]}
-                            onChange={(e) => updateJob(e)}
-                        ></input>
-                    )}  
-                    <button onClick={handleEdit}>
-                        Submit
-                    </button>
-                    </>
-                }
-            </div>
-        </form>
-    ) 
+        <div>
+            {shouldRenderForm &&
+            <JobInput 
+                job={job} 
+                updateJob={updateJob} 
+                switchDisplay={switchDisplay}
+            />}
+            {shouldRenderDisplay &&
+            <JobInputDisplay
+                job={job}
+                switchDisplay={switchDisplay}
+            />}
+        </div>
+    )
+
 }
 
 JobInput.propTypes = {
-    id: PropTypes.string,
-    shouldRenderForm: PropTypes.bool}
+    job: PropTypes.object,
+    updateJob: PropTypes.func,
+    switchDisplay: PropTypes.func
+}
 
-export default JobInput;
+JobInputDisplay.propTypes = {
+    job: PropTypes.object,
+    switchDisplay: PropTypes.func
+}
+
+export default JobForm;
