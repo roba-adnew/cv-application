@@ -10,8 +10,8 @@ function JobInput({ job, updateJob, switchDisplay }) {
     const tagAttributes = {
         company: 'Company name',
         role: 'Job Title',
-        startDate: '',
-        endDate: '',
+        startDate: 'Start Date',
+        endDate: 'End Date',
         feats: 'Describe your accomplishments',
     }
 
@@ -73,6 +73,7 @@ function JobForm() {
 
     return (
         <div>
+            <h3>Professional Experience</h3>
             {shouldRenderForm &&
             <JobInput 
                 job={job} 
