@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import HeaderForm from './Header/HeaderForm.jsx';
 import HeaderDisplay from './Header/HeaderDisplay.jsx';
+import JobInput from './ProfessionalX/JobForm.jsx'
 
 function App() {
   const [header, setHeader] = useState(() => ({
@@ -22,6 +23,7 @@ function App() {
       <div id='app'>
         <div id='form'>
           <HeaderForm submitHandler={headerSubmitHandler}/>
+          <JobInput id={'123'}/>
         </div>
         <div id='display'>
           <HeaderDisplay headerData={header}/>

@@ -1,37 +1,12 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import PropTypes from 'prop-types'
-
-// const [exp, setExp] = useState(() => ([
-//     {
-//         id: '123',
-//         company: '',
-//         role: '',
-//         startDate: '',
-//         endDate: '',
-//         feats: []
-//     }
-// ]))
-
-// function addJob(newProfObject){
-//     setExp(prevProf => prevProf.push(newProfObject))
-// }
-
-// function removeJob(profID) {
-//     const profObject = exp.find(({ id }) => id === profID);
-//     setExp(prevProf => 
-//         prevProf.splice(prevProf.indexOf(profObject),1))
-// }
-
-// const [shouldRenderForm, setShouldRenderForm] = useState(false);
+import PropTypes from 'prop-types';
+import JobDescriptors from './Descriptors/Descriptors';
 
 
-// function handleEdit() {setShouldRenderForm(!shouldRenderForm)}
-
+// DONT FORGET CODE AT THE BOTTOM
 
 function JobInput({ job, updateJob, switchDisplay }) {
-    
-
     const tagAttributes = {
         company: 'Company name',
         role: 'Job Title',
@@ -44,6 +19,7 @@ function JobInput({ job, updateJob, switchDisplay }) {
         <form>
             <div>
                 {Object.keys(tagAttributes).map((field) => 
+                    field !== 'feats' &&
                     <input 
                         key={job.id}
                         id={field}
@@ -51,7 +27,8 @@ function JobInput({ job, updateJob, switchDisplay }) {
                         placeholder={tagAttributes[field]}
                         onChange={(e) => updateJob(e)}
                     ></input>
-                )}  
+                )}
+                <JobDescriptors />
                 <button onClick={switchDisplay}>
                     Submit
                 </button>
@@ -124,3 +101,29 @@ JobInputDisplay.propTypes = {
 }
 
 export default JobForm;
+
+// const [exp, setExp] = useState(() => ([
+//     {
+//         id: '123',
+//         company: '',
+//         role: '',
+//         startDate: '',
+//         endDate: '',
+//         feats: []
+//     }
+// ]))
+
+// function addJob(newProfObject){
+//     setExp(prevProf => prevProf.push(newProfObject))
+// }
+
+// function removeJob(profID) {
+//     const profObject = exp.find(({ id }) => id === profID);
+//     setExp(prevProf => 
+//         prevProf.splice(prevProf.indexOf(profObject),1))
+// }
+
+// const [shouldRenderForm, setShouldRenderForm] = useState(false);
+
+
+// function handleEdit() {setShouldRenderForm(!shouldRenderForm)}

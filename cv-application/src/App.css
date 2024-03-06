@@ -5,6 +5,13 @@
   font-family:  Calibri, Roboto, 'Gill Sans MT', 'Trebuchet MS', sans-serif;
 }
 
+#form, #display {
+  width: 50%;
+  height: 100vh;
+  border: 1px solid black;
+  padding: 15px 25px 15px 25px
+}
+
 #form {
   float: left;
   width: 50%;
@@ -14,7 +21,4 @@
 
 #display {
   float: right;
-  width: 50%;
-  height: 100vh;
-  border: 1px solid black;
 }

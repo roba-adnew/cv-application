@@ -5,7 +5,7 @@ import './Header.css';
 function HeaderInput({ 
     header, 
     updateHeader,
-    handleEdit, 
+    switchDisplay, 
     submitHandler}) { 
     const tagAttributes = 
         {
@@ -52,12 +52,14 @@ function HeaderInput({
     
     return (
         <>
-            <form>
-                {Object.keys(header).map(field => 
+            <form id="header-form">
+                {Object.keys(header).map((field) => 
+                    <div key={field}>
+                    <label>{tagAttributes[field]['placeholder']}</label>
                     <input 
                         key={field}
                         id={field}
-                        placeholder={tagAttributes[field]['placeholder']}
+                     
                         type={tagAttributes[field]['placeholder']}
                         {...tagAttributes[field]['required'] 
                             && {required: true}}
@@ -65,10 +67,11 @@ function HeaderInput({
                         onChange={updateHeader}
                         >
                     </input>
+                    </div>
                     
                 )}
-                <button onClick={(e) => {
-                    handleEdit(e)
+                <button onClick={() => {
+                    switchDisplay()
                     submitHandler(header)
                 }}>
                     Submit
@@ -78,9 +81,9 @@ function HeaderInput({
     )
 }
 
-function SubmittedInputDisplay({
+function HeaderInputDisplay({
     header, 
-    handleEdit
+    switchDisplay
 }) {
 
     return (
@@ -89,9 +92,8 @@ function SubmittedInputDisplay({
                 {Object.keys(header).map(field => 
                     <p className="display" key={field}>{header[field]}</p>
                 )}
-                <button onClick={handleEdit}>Edit</button>
-            </div>
-                
+                <button onClick={switchDisplay}>Edit</button>
+            </div>     
         </>
     )
 }
@@ -123,12 +125,9 @@ function HeaderForm({ submitHandler }) {
         setHeader({...header, [field]: value});
     }
 
-    function handleEdit(e) {
-        e.preventDefault();
-        setShouldRenderForm(!shouldRenderForm);
-    }
-    const shouldShowSubmission = !shouldRenderForm;
+    function switchDisplay() {setShouldRenderForm(!shouldRenderForm)}
 
+    const shouldShowSubmission = !shouldRenderForm;
     
     return (
         <div>
@@ -138,15 +137,15 @@ function HeaderForm({ submitHandler }) {
                     header={header}
                     updateHeader={updateHeader} 
                     shouldDisplay={shouldRenderForm}
-                    handleEdit={handleEdit}
+                    switchDisplay={switchDisplay}
                     submitHandler={submitHandler}
                 />}
                 
                 {shouldShowSubmission && 
-                <SubmittedInputDisplay 
+                <HeaderInputDisplay 
                     header={header}
                     shouldDisplay={shouldShowSubmission}
-                    handleEdit={handleEdit}
+                    switchDisplay={switchDisplay}
                 />}
                 
         </div>
@@ -157,12 +156,12 @@ HeaderForm.propTypes = { submitHandler: PropTypes.func }
 HeaderInput.propTypes = {
     header: PropTypes.object,
     updateHeader: PropTypes.func,
-    handleEdit: PropTypes.func,
+    switchDisplay: PropTypes.func,
     submitHandler: PropTypes.func
 }
-SubmittedInputDisplay.propTypes = {
+HeaderInputDisplay.propTypes = {
     header: PropTypes.object,
-    handleEdit: PropTypes.func
+    switchDisplay: PropTypes.func
 }
 
 export default HeaderForm;
