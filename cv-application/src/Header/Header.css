@@ -2,7 +2,7 @@
 
 /**** HEADER */
 /* FORM */
-#header-form {
+#header-form, #inputDisplay {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 8px;
@@ -11,6 +11,13 @@
 
 #header-form label {
     display: block
+}
+
+#inputDisplay p {
+    margin: 0px;
+    padding: 2px;
+    font-size: 13px;
+    
 }
 
 #header-form div{
@@ -24,15 +31,11 @@
     height: 20px
 }
 
-#header-form button {
+#header-form button, #inputDisplay button {
     grid-column: 1 / 3; 
     margin: 10px
 }
 
-#inputDisplay {
-    font-size: 12px;
-    padding: 0px;
-}
 
 
 /* DISPLAY */
