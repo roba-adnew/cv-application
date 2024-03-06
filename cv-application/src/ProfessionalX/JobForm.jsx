@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import JobDescriptors from './Descriptors/Descriptors';
+import { format } from 'date-fns'; 
 
 
 // DONT FORGET CODE AT THE BOTTOM
@@ -20,15 +21,21 @@ function JobInput({ job, updateJob, switchDisplay }) {
             <div>
                 {Object.keys(tagAttributes).map((field) => 
                     field !== 'feats' &&
+                    <>
                     <input 
                         key={job.id}
                         id={field}
                         type={field.includes('Date') ? 'date' : 'text'}
+                        value={job[field]}
                         placeholder={tagAttributes[field]}
-                        onChange={(e) => updateJob(e)}
+                        onChange={(e) => {
+                            e.preventDefault();
+                            updateJob(field, e.target.value)
+                        }}
                     ></input>
+                    </>
                 )}
-                <JobDescriptors />
+                <JobDescriptors updateJob={updateJob}/>
                 <button onClick={switchDisplay}>
                     Submit
                 </button>
@@ -41,30 +48,54 @@ function JobInputDisplay({ job, switchDisplay }) {
     return (
         <div id="jobDisplay">
             {Object.keys(job).map(field => 
-                field !== 'id' &&
+                field !== 'id' && field !== 'feats' &&
                 <p className="display" key={field}>{job[field]}</p>
+            )}
+            {Object.keys(job).map(field => 
+                field === 'feats' &&
+                job[field].map(
+                    feat => 
+                    <p className="display" key={feat.id}>{feat.text}</p>
+                )
             )}
             <button onClick={switchDisplay}>Edit</button>
         </div>
     )
 }
 
+function setDefaultDueDate() {
+    const today = new Date;
+    const tomorrow = new Date(); 
+    tomorrow.setDate(today.getDate());
+    return format(tomorrow, 'yyyy-MM-dd');
+}
+
 function JobForm() {
+    // {
+    //     id: uuidv4(),
+    //     company: '',
+    //     role: '',
+    //     startDate: '',
+    //     endDate: '',
+    //     feats: []
+    // }
     const [job, setJob] = useState(() => ({
         id: uuidv4(),
-        company: '',
-        role: '',
-        startDate: '',
-        endDate: '',
+        company: 'meta',
+        role: 'product',
+        startDate: setDefaultDueDate(),
+        endDate: setDefaultDueDate(),
         feats: []
     }))
     const [shouldRenderForm, setShouldRenderForm] = useState(true)
 
-    function updateJob(e) {
-        e.preventDefault();
-        const value = e.target.value;
-        const field = e.target.id;
-        setJob({...job, [field]: value});
+    function updateJob(field, value) {
+        if (field === 'feats') {
+            setJob(() => ({...job, [field]: [...value]}))
+        }
+        else {
+            setJob({...job, [field]: value});
+        }
     }
 
     function switchDisplay() {setShouldRenderForm(!shouldRenderForm)}
