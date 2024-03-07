@@ -1,11 +1,8 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
-import JobDescriptors from './Descriptors/Descriptors';
+import JobDescriptors from './Descriptors/Descriptors.jsx';
 import { format } from 'date-fns'; 
-
-
-// DONT FORGET CODE AT THE BOTTOM
 
 function JobInput({ job, updateJob, switchDisplay }) {
     const tagAttributes = {
@@ -18,12 +15,11 @@ function JobInput({ job, updateJob, switchDisplay }) {
 
     return (
         <form>
-            <div>
+            <div key={'feats: ' + job.id}>
                 {Object.keys(tagAttributes).map((field) => 
                     field !== 'feats' &&
-                    <>
                     <input 
-                        key={job.id}
+                        key={field + ":" + job.id}
                         id={field}
                         type={field.includes('Date') ? 'date' : 'text'}
                         value={job[field]}
@@ -33,10 +29,12 @@ function JobInput({ job, updateJob, switchDisplay }) {
                             updateJob(field, e.target.value)
                         }}
                     ></input>
-                    </>
                 )}
-                <JobDescriptors updateJob={updateJob}/>
-                <button onClick={switchDisplay}>
+                <JobDescriptors job={job} updateJob={updateJob}/>
+                <button onClick={(e) => {
+                    e.preventDefault();
+                    switchDisplay();
+                }}>
                     Submit
                 </button>
             </div>
@@ -49,13 +47,13 @@ function JobInputDisplay({ job, switchDisplay }) {
         <div id="jobDisplay">
             {Object.keys(job).map(field => 
                 field !== 'id' && field !== 'feats' &&
-                <p className="display" key={field}>{job[field]}</p>
+                <p className="display" key={job.id}>{job[field]}</p>
             )}
             {Object.keys(job).map(field => 
                 field === 'feats' &&
                 job[field].map(
                     feat => 
-                    <p className="display" key={feat.id}>{feat.text}</p>
+                    <p className="display" key={job.id+feat.id}>{feat.text}</p>
                 )
             )}
             <button onClick={switchDisplay}>Edit</button>
@@ -63,6 +61,7 @@ function JobInputDisplay({ job, switchDisplay }) {
     )
 }
 
+// Get rid of this on eventually...maybe 
 function setDefaultDueDate() {
     const today = new Date;
     const tomorrow = new Date(); 
@@ -70,23 +69,26 @@ function setDefaultDueDate() {
     return format(tomorrow, 'yyyy-MM-dd');
 }
 
-function JobForm() {
-    // {
-    //     id: uuidv4(),
-    //     company: '',
-    //     role: '',
-    //     startDate: '',
-    //     endDate: '',
-    //     feats: []
-    // }
-    const [job, setJob] = useState(() => ({
+const emptyJob = {
         id: uuidv4(),
-        company: 'meta',
-        role: 'product',
-        startDate: setDefaultDueDate(),
-        endDate: setDefaultDueDate(),
+        company: '',
+        role: '',
+        startDate: '',
+        endDate: '',
         feats: []
-    }))
+    };
+
+const defaultJob = {
+    id: uuidv4(),
+    company: 'meta',
+    role: 'product',
+    startDate: setDefaultDueDate(),
+    endDate: setDefaultDueDate(),
+    feats: []
+}
+
+function JobForm() {
+    const [job, setJob] = useState(() => emptyJob)
     const [shouldRenderForm, setShouldRenderForm] = useState(true)
 
     function updateJob(field, value) {
@@ -104,21 +106,21 @@ function JobForm() {
 
     return (
         <div>
-            <h3>Professional Experience</h3>
             {shouldRenderForm &&
-            <JobInput 
-                job={job} 
-                updateJob={updateJob} 
-                switchDisplay={switchDisplay}
-            />}
+                <JobInput 
+                    job={job} 
+                    updateJob={updateJob} 
+                    switchDisplay={switchDisplay}
+                />
+            }
             {shouldRenderDisplay &&
-            <JobInputDisplay
-                job={job}
-                switchDisplay={switchDisplay}
-            />}
+                <JobInputDisplay
+                    job={job}
+                    switchDisplay={switchDisplay}
+                />
+            }
         </div>
     )
-
 }
 
 JobInput.propTypes = {
@@ -133,29 +135,3 @@ JobInputDisplay.propTypes = {
 }
 
 export default JobForm;
-
-// const [exp, setExp] = useState(() => ([
-//     {
-//         id: '123',
-//         company: '',
-//         role: '',
-//         startDate: '',
-//         endDate: '',
-//         feats: []
-//     }
-// ]))
-
-// function addJob(newProfObject){
-//     setExp(prevProf => prevProf.push(newProfObject))
-// }
-
-// function removeJob(profID) {
-//     const profObject = exp.find(({ id }) => id === profID);
-//     setExp(prevProf => 
-//         prevProf.splice(prevProf.indexOf(profObject),1))
-// }
-
-// const [shouldRenderForm, setShouldRenderForm] = useState(false);
-
-
-// function handleEdit() {setShouldRenderForm(!shouldRenderForm)}

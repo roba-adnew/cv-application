@@ -10,12 +10,10 @@ function Feat(displayForm = false) {
     }
 }
 
+function JobDescriptors({ job, updateJob }) {
+    const [feats, setFeats] = useState([...job.feats]);
 
-function JobDescriptorsInput({ updateJob }) {
-    const [feats, setFeats] = useState([]);
-
-    function addDescriptorInput(e) {
-        e.preventDefault();
+    function addDescriptor() {
         setFeats([...feats, Feat(true)]);
     }
 
@@ -49,34 +47,39 @@ function JobDescriptorsInput({ updateJob }) {
         <>
             {feats.map(feat => (
                 feat.displayForm ?
-                    <form key={feat.id}>
+                    <form key={'form: ' + feat.id}>
                         <input
                             className='describe'
                             onChange={(e) => {
                                 e.preventDefault();
                                 updateFeat(feat.id, e.target.value)
                             }}
-                            value={feat.text}></input>
-                        <button 
-                            onClick={(e) => {
-                                e.preventDefault();
-                                updateJob('feats',feats);
-                                switchDisplay(feat.id)
-                            }}
+                            value={feat.text}
                         >
+                        </input>
+                        <button onClick={(e) => {
+                            e.preventDefault();
+                            updateJob('feats',feats);
+                            switchDisplay(feat.id)
+                        }}>
                             Add descriptor
                         </button>
                     </form> :
-                    <div key={feat.id}>
+                    <div key={'display: ' + feat.id}>
                         <p className='description'>{feat.text}</p>
-                        <button onClick={() => switchDisplay(feat.id)}>
+                        <button onClick={(e) => {
+                            e.preventDefault();
+                            switchDisplay(feat.id)
+                        }}>
                             Edit
                         </button>
                     </div>
             ))}
             <button
-                id='new-job-button'
-                onClick={(e) => addDescriptorInput(e)}>
+                id='new-description-button'
+                onClick={(e) => {
+                    e.preventDefault();
+                    addDescriptor()}}>
                 Add a descriptions and/or accomplishment
             </button>
         </>
@@ -84,9 +87,9 @@ function JobDescriptorsInput({ updateJob }) {
 
 }
 
-JobDescriptorsInput.propTypes = {
+JobDescriptors.propTypes = {
     job: PropTypes.object,
     updateJob: PropTypes.func
 }
 
-export default JobDescriptorsInput;
+export default JobDescriptors;
