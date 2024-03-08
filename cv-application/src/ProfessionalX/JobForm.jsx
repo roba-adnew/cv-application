@@ -105,7 +105,7 @@ const defaultJob = {
     display: true,
 }
 
-function JobForm() {
+function JobForm({ deleteJob }) {
     const [job, setJob] = useState(() => defaultJob)
     const [shouldRenderForm, setShouldRenderForm] = useState(true)
 
@@ -137,14 +137,28 @@ function JobForm() {
                     switchDisplay={switchDisplay}
                 />
             }
-            <button onClick={(e) => {
-                e.preventDefault();
-                setJob({...job, display: !job.display})
-            }}>
+            <button 
+                onClick={(e) => {
+                    e.preventDefault();
+                    setJob({...job, display: !job.display})
+                }}
+            >
                 {job.display ? 'Exclude from resume' : 'Include in resume'}
+            </button>
+            <button 
+                onClick={(e) => {
+                    e.preventDefault();
+                    deleteJob(this)
+                }}
+            >
+                Delete Job
             </button>
         </>
     )
+}
+
+JobForm.propTypes = {
+    deleteJob: PropTypes.func
 }
 
 JobInput.propTypes = {

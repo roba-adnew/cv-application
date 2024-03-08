@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import JobForm from './JobForm.jsx';
-import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
 function ExperienceForm() {
     const [jobs, setJobs] = useState([])
 
     function addNewJob() {
-        const newJob = <JobForm />;
+        const newJob = <JobForm deleteJob={deleteJob}/>;
         setJobs([...jobs, newJob]);
     }
 
-    
+    function deleteJob(jobToDelete) {
+        setJobs(jobs.filter(job => job !== jobToDelete))
+    }
+
     return (
         <div>
             <h3>Professional Experience</h3>
@@ -28,7 +30,5 @@ function ExperienceForm() {
         </div>
     )   
 }
-
-
 
 export default ExperienceForm;
