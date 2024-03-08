@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
-import JobDescriptors from './Descriptors/Descriptors.jsx';
+import JobFeats from './Descriptors/Descriptors.jsx';
 import { format } from 'date-fns'; 
 
 function JobInput({ job, updateJob, switchDisplay }) {
@@ -31,7 +31,7 @@ function JobInput({ job, updateJob, switchDisplay }) {
                         }}
                     ></input>
                 )}
-                <JobDescriptors job={job} updateJob={updateJob}/> 
+                <JobFeats job={job} updateJob={updateJob}/> 
                 <button onClick={(e) => {
                     e.preventDefault();
                     switchDisplay();

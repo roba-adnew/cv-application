@@ -2,19 +2,18 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types'
 
-function Feat(displayForm = false) {
+function Feat() {
     return {
         id: uuidv4(),
         text: '',
-        displayForm: displayForm
     }
 }
 
-function JobDescriptors({ job, updateJob }) {
+function JobFeats({ job, updateJob }) {
     const [feats, setFeats] = useState([...job.feats]);
 
-    function addDescriptor() {
-        setFeats([...feats, Feat(true)]);
+    function addFeat() {
+        setFeats([...feats, Feat()]);
     }
 
     function updateFeat(id, text) {
@@ -30,23 +29,13 @@ function JobDescriptors({ job, updateJob }) {
         setFeats(updatedFeats);
     }
 
-    function switchDisplay(id) {
-        const updatedFeats = feats.map(feat => {
-            if (feat.id === id) {
-                feat.displayForm = !feat.displayForm;
-                return feat;
-            }
-            else {
-                return feat
-            }
-        });
-        setFeats(updatedFeats);
+    function deleteFeat(id) {
+        setFeats(feats.filter(feat => feat.id !== id));
     }
 
     return (
         <>
             {feats.map(feat => (
-                feat.displayForm ?
                     <div key={'form: ' + feat.id}>
                         <input
                             className='describe'
@@ -60,26 +49,17 @@ function JobDescriptors({ job, updateJob }) {
                         <button onClick={(e) => {
                             e.preventDefault();
                             updateJob('feats',feats);
-                            switchDisplay(feat.id)
+                            deleteFeat(feat.id)
                         }}>
-                            Add descriptor
+                            Delete descriptor
                         </button>
-                    </div> :
-                    <div key={'display: ' + feat.id}>
-                        <p className='description'>{feat.text}</p>
-                        <button onClick={(e) => {
-                            e.preventDefault();
-                            switchDisplay(feat.id)
-                        }}>
-                            Edit
-                        </button>
-                    </div>
+                    </div> 
             ))}
             <button
                 id='new-description-button'
                 onClick={(e) => {
                     e.preventDefault();
-                    addDescriptor()}}>
+                    addFeat()}}>
                 Add a descriptions and/or accomplishment
             </button>
         </>
@@ -87,9 +67,9 @@ function JobDescriptors({ job, updateJob }) {
 
 }
 
-JobDescriptors.propTypes = {
+JobFeats.propTypes = {
     job: PropTypes.object,
     updateJob: PropTypes.func
 }
 
-export default JobDescriptors;
+export default JobFeats;
