@@ -11,13 +11,14 @@ function JobInput({ job, updateJob, switchDisplay }) {
         startDate: 'Start Date',
         endDate: 'End Date',
         feats: 'Describe your accomplishments',
+        display: 'true,'
     }
 
     return (
         <form>
-            <div key={'feats: ' + job.id}>
+            <div key={`job-input: ${job.id}`}>
                 {Object.keys(tagAttributes).map((field) => 
-                    field !== 'feats' &&
+                    (field !== 'feats' && field !== 'display') &&
                     <input 
                         key={field + ":" + job.id}
                         id={field}
@@ -30,7 +31,7 @@ function JobInput({ job, updateJob, switchDisplay }) {
                         }}
                     ></input>
                 )}
-                <JobDescriptors job={job} updateJob={updateJob}/>
+                <JobDescriptors job={job} updateJob={updateJob}/> 
                 <button onClick={(e) => {
                     e.preventDefault();
                     switchDisplay();
@@ -44,16 +45,20 @@ function JobInput({ job, updateJob, switchDisplay }) {
 
 function JobInputDisplay({ job, switchDisplay }) {
     return (
-        <div id="jobDisplay">
+        <div key={`job-display: ${job.id}`}>
             {Object.keys(job).map(field => 
-                field !== 'id' && field !== 'feats' &&
-                <p className="display" key={job.id}>{job[field]}</p>
+                (field !== 'feats' && field !== 'display' && field !== 'id') && 
+                <p className="display" key={`${field}}: ${job.id}`}>
+                    {job[field]}
+                </p>
             )}
             {Object.keys(job).map(field => 
                 field === 'feats' &&
                 job[field].map(
                     feat => 
-                    <p className="display" key={job.id+feat.id}>{feat.text}</p>
+                    <p className="display" key={`feat: ${feat.id}`}>
+                        {feat.text}
+                    </p>
                 )
             )}
             <button onClick={switchDisplay}>Edit</button>
@@ -75,7 +80,8 @@ const emptyJob = {
         role: '',
         startDate: '',
         endDate: '',
-        feats: []
+        feats: [],
+        display: true,
     };
 
 const defaultJob = {
@@ -95,7 +101,8 @@ const defaultJob = {
             text: 'a lil bit of that',
             displayForm: true
         },
-]
+    ],
+    display: true,
 }
 
 function JobForm() {
@@ -116,7 +123,7 @@ function JobForm() {
     const shouldRenderDisplay = !shouldRenderForm;
 
     return (
-        <div>
+        <>
             {shouldRenderForm &&
                 <JobInput 
                     job={job} 
@@ -130,7 +137,13 @@ function JobForm() {
                     switchDisplay={switchDisplay}
                 />
             }
-        </div>
+            <button onClick={(e) => {
+                e.preventDefault();
+                setJob({...job, display: !job.display})
+            }}>
+                {job.display ? 'Exclude from resume' : 'Include in resume'}
+            </button>
+        </>
     )
 }
 
