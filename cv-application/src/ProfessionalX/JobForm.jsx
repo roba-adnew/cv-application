@@ -84,11 +84,22 @@ const defaultJob = {
     role: 'product',
     startDate: setDefaultDueDate(),
     endDate: setDefaultDueDate(),
-    feats: []
+    feats: [
+        {
+            id: uuidv4(),
+            text: 'a lil bit of this',
+            displayForm: true
+        },
+        {
+            id: uuidv4(),
+            text: 'a lil bit of that',
+            displayForm: true
+        },
+]
 }
 
 function JobForm() {
-    const [job, setJob] = useState(() => emptyJob)
+    const [job, setJob] = useState(() => defaultJob)
     const [shouldRenderForm, setShouldRenderForm] = useState(true)
 
     function updateJob(field, value) {

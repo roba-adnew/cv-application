@@ -47,7 +47,7 @@ function JobDescriptors({ job, updateJob }) {
         <>
             {feats.map(feat => (
                 feat.displayForm ?
-                    <form key={'form: ' + feat.id}>
+                    <div key={'form: ' + feat.id}>
                         <input
                             className='describe'
                             onChange={(e) => {
@@ -64,7 +64,7 @@ function JobDescriptors({ job, updateJob }) {
                         }}>
                             Add descriptor
                         </button>
-                    </form> :
+                    </div> :
                     <div key={'display: ' + feat.id}>
                         <p className='description'>{feat.text}</p>
                         <button onClick={(e) => {
