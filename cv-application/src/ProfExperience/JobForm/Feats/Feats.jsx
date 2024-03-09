@@ -9,7 +9,7 @@ function Feat() {
     }
 }
 
-function JobFeats({ job, updateJob }) {
+function FeatsForm({ job, updateJob }) {
     const [feats, setFeats] = useState([...job.feats]);
 
     function addFeat() {
@@ -17,7 +17,7 @@ function JobFeats({ job, updateJob }) {
     }
 
     function updateFeat(id, text) {
-        const updatedFeats = feats.map(feat => {
+        setFeats(featsPrior => featsPrior.map(feat => {
             if (feat.id === id) {
                 feat.text = text;
                 return feat;
@@ -25,12 +25,11 @@ function JobFeats({ job, updateJob }) {
             else {
                 return feat
             }
-        });
-        setFeats(updatedFeats);
+        }))
     }
 
     function deleteFeat(id) {
-        setFeats(feats.filter(feat => feat.id !== id));
+        setFeats(featsPrior => featsPrior.filter(feat => feat.id !== id));
     }
 
     return (
@@ -41,15 +40,16 @@ function JobFeats({ job, updateJob }) {
                             className='describe'
                             onChange={(e) => {
                                 e.preventDefault();
-                                updateFeat(feat.id, e.target.value)
+                                updateFeat(feat.id, e.target.value);
+                                updateJob(job.id, 'feats', feats);
                             }}
                             value={feat.text}
                         >
                         </input>
                         <button onClick={(e) => {
                             e.preventDefault();
-                            updateJob('feats',feats);
-                            deleteFeat(feat.id)
+                            deleteFeat(feat.id);
+                            updateJob(job.id, 'feats', feats);
                         }}>
                             Delete descriptor
                         </button>
@@ -67,9 +67,9 @@ function JobFeats({ job, updateJob }) {
 
 }
 
-JobFeats.propTypes = {
+FeatsForm.propTypes = {
     job: PropTypes.object,
     updateJob: PropTypes.func
 }
 
-export default JobFeats;
+export default FeatsForm;

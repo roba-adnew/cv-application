@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import JobForm from './JobForm/JobForm.jsx';
 import { v4 as uuidv4 } from 'uuid';
@@ -12,7 +11,7 @@ function setDefaultDueDate() {
     return format(tomorrow, 'yyyy-MM-dd');
 }
 
-function Job(company, role, startDate, endDate, feats) {
+export function Job(company, role, startDate, endDate, feats) {
     const listedFeats = feats ? feats : [];
     const goodStartDate = startDate !== '' ? startDate : setDefaultDueDate();
     const goodEndDate = endDate !== '' ? endDate : setDefaultDueDate();
@@ -28,39 +27,17 @@ function Job(company, role, startDate, endDate, feats) {
     }
 }
 
-const defaultJob = Job('Meta','Product Partnerships Manager','','',[
-        {
-            id: uuidv4(),
-            text: 'a lil bit of this',
-            displayForm: true
-        },
-        {
-            id: uuidv4(),
-            text: 'a lil bit of that',
-            displayForm: true
-        }])
 
-
-function ProfExperienceForm({ submitHandler }) {
-    const [jobs, setJobs] = useState([defaultJob])
-
-    function addNewJob() {
-        const newJob = Job();
-        setJobs((jobsPrior) => [...jobsPrior, newJob]);
-    }
-
-    function deleteJob(id) {
-        setJobs(jobs.filter(job => job.id !== id))
-    }
-
+function ProfExperienceForm({ jobs, addNewJob, updateJob, deleteJob }) {
     return (
         <div>
             <h3>Professional Experience</h3>
             {jobs.map(job => 
                 <JobForm 
                     key={`job-container: ${job.id}`} 
-                    jobObject={job} 
+                    job={job} 
                     deleteJob={deleteJob}
+                    updateJob={updateJob}
                 />
             )}
             <button onClick={(e) => {
@@ -69,16 +46,16 @@ function ProfExperienceForm({ submitHandler }) {
             >
                 Add a current or past experience
             </button>
-            <button onClick={(e) => {
-                e.preventDefault();
-                submitHandler(jobs)}}
-            >
-                Update professional experience section
-            </button>
+
         </div>
     )   
 }
 
-ProfExperienceForm.propTypes = { submitHandler : PropTypes.func }
+ProfExperienceForm.propTypes = { 
+    jobs: PropTypes.array,
+    addNewJob: PropTypes.func,
+    updateJob: PropTypes.func,
+    deleteJob: PropTypes.func,
+ }
 
 export default ProfExperienceForm;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import JobFeats from './Feats/Feats.jsx';
+import FeatsForm from './Feats/Feats.jsx';
 
 
 function JobInput({ job, updateJob, switchDisplay }) {
@@ -25,11 +25,11 @@ function JobInput({ job, updateJob, switchDisplay }) {
                         placeholder={tagAttributes[field]}
                         onChange={(e) => {
                             e.preventDefault();
-                            updateJob(field, e.target.value)
+                            updateJob(job.id, field, e.target.value)
                         }}
                     ></input>
                 )}
-                <JobFeats job={job} updateJob={updateJob} />
+                <FeatsForm job={job} updateJob={updateJob} />
                 <button onClick={(e) => {
                     e.preventDefault();
                     switchDisplay();
@@ -59,25 +59,24 @@ function JobInputDisplay({ job, switchDisplay }) {
                         </p>
                 )
             )}
-            <button onClick={switchDisplay}>Edit</button>
+            <button 
+                onClick={(e) => { 
+                    e.preventDefault();
+                    switchDisplay();
+                }}
+            >
+                Edit
+            </button>
         </div>
     )
 }
 
-function JobForm({ jobObject, deleteJob }) {
-    const [job, setJob] = useState(() => ({...jobObject}))
+function JobForm({ job, updateJob, deleteJob }) {
     const [shouldRenderForm, setShouldRenderForm] = useState(true)
 
-    function updateJob(field, value) {
-        if (field === 'feats') {
-            setJob(() => ({ ...job, [field]: [...value] }))
-        }
-        else {
-            setJob({ ...job, [field]: value });
-        }
+    function switchDisplay() { 
+        setShouldRenderForm(!shouldRenderForm) 
     }
-
-    function switchDisplay() { setShouldRenderForm(!shouldRenderForm) }
 
     const shouldRenderDisplay = !shouldRenderForm;
 
@@ -99,15 +98,15 @@ function JobForm({ jobObject, deleteJob }) {
             <button
                 onClick={(e) => {
                     e.preventDefault();
-                    setJob({ ...job, display: !job.display })
+                    updateJob(job.id, 'display', !job.display);
                 }}
             >
-                {job.display ? 'Exclude from resume' : 'Include in resume'}
+                {job['display'] ? 'Exclude from resume' : 'Include in resume'}
             </button>
             <button
                 onClick={(e) => {
                     e.preventDefault();
-                    deleteJob(job)
+                    deleteJob(job.id);
                 }}
             >
                 Delete Job
@@ -117,8 +116,9 @@ function JobForm({ jobObject, deleteJob }) {
 }
 
 JobForm.propTypes = {
-    jobObject: PropTypes.object,
-    deleteJob: PropTypes.func
+    job: PropTypes.object,
+    deleteJob: PropTypes.func,
+    updateJob: PropTypes.func,
 }
 
 JobInput.propTypes = {
