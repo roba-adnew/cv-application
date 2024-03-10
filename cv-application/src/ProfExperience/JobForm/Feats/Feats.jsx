@@ -1,65 +1,45 @@
-import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types'
-
-function Feat() {
-    return {
-        id: uuidv4(),
-        text: '',
-    }
-}
+import { Feat } from '../../../utils.components.jsx'
 
 function FeatsForm({ job, updateJob }) {
-    const [feats, setFeats] = useState([...job.feats]);
-
-    function addFeat() {
-        setFeats([...feats, Feat()]);
-    }
-
-    function updateFeat(id, text) {
-        setFeats(featsPrior => featsPrior.map(feat => {
-            if (feat.id === id) {
-                feat.text = text;
-                return feat;
-            }
-            else {
-                return feat
-            }
-        }))
-    }
-
-    function deleteFeat(id) {
-        setFeats(featsPrior => featsPrior.filter(feat => feat.id !== id));
-    }
 
     return (
         <>
-            {feats.map(feat => (
-                    <div key={'form: ' + feat.id}>
-                        <input
-                            className='describe'
-                            onChange={(e) => {
-                                e.preventDefault();
-                                updateFeat(feat.id, e.target.value);
-                                updateJob(job.id, 'feats', feats);
-                            }}
-                            value={feat.text}
-                        >
-                        </input>
-                        <button onClick={(e) => {
+            {job.feats.map(feat => (
+                <div key={'form: ' + feat.id}>
+                    <input
+                        className='describe'
+                        onChange={(e) => {
                             e.preventDefault();
-                            deleteFeat(feat.id);
-                            updateJob(job.id, 'feats', feats);
-                        }}>
-                            Delete descriptor
-                        </button>
-                    </div> 
+                            const updatedFeats = job.feats.map(ft => {
+                                if (ft.id === feat.id) {
+                                    ft.text = e.target.value;
+                                }
+                                return ft
+                            })
+                            updateJob(job.id, 'feats', updatedFeats);
+                        }}
+                        value={feat.text}
+                    >
+                    </input>
+                    <button onClick={(e) => {
+                        e.preventDefault();
+                        const updatedFeats = job.feats.filter(
+                            ft => ft.id !== feat.id
+                        )
+                        updateJob(job.id, 'feats', updatedFeats);
+                    }}>
+                        Delete descriptor
+                    </button>
+                </div>
             ))}
             <button
                 id='new-description-button'
                 onClick={(e) => {
                     e.preventDefault();
-                    addFeat()}}>
+                    const updatedFeats = [...job.feats, Feat()];
+                    updateJob(job.id, 'feats', updatedFeats)
+                }}>
                 Add a descriptions and/or accomplishment
             </button>
         </>

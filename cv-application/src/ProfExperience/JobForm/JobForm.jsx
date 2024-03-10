@@ -9,14 +9,12 @@ function JobInput({ job, updateJob, switchDisplay }) {
         role: 'Job Title',
         startDate: 'Start Date',
         endDate: 'End Date',
-        feats: 'Describe your accomplishments',
     }
 
     return (
         <form>
             <div key={`job-input: ${job.id}`}>
                 {Object.keys(tagAttributes).map((field) =>
-                    field !== 'feats' &&
                     <input
                         key={field + ":" + job.id}
                         id={field}
@@ -59,8 +57,8 @@ function JobInputDisplay({ job, switchDisplay }) {
                         </p>
                 )
             )}
-            <button 
-                onClick={(e) => { 
+            <button
+                onClick={(e) => {
                     e.preventDefault();
                     switchDisplay();
                 }}
@@ -74,8 +72,8 @@ function JobInputDisplay({ job, switchDisplay }) {
 function JobForm({ job, updateJob, deleteJob }) {
     const [shouldRenderForm, setShouldRenderForm] = useState(true)
 
-    function switchDisplay() { 
-        setShouldRenderForm(!shouldRenderForm) 
+    function switchDisplay() {
+        setShouldRenderForm(!shouldRenderForm)
     }
 
     const shouldRenderDisplay = !shouldRenderForm;
