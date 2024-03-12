@@ -6,32 +6,25 @@ function HeaderDisplay({ headerData }) {
             <h1 id='name'>{headerData['name']}</h1>
             <div id="headerInfo">
                 {Object.keys(headerData).map(
-                    field => 
-                    {
-                        return field !== 'name' &&
-                        ((field === 'phone') || 
-                        (field === 'address') ||
-                        (field === 'email')) && 
-                        <p 
-                        key={field} 
-                        id={field} >
-                            &#183; {headerData[field]} &#183; 
+                    field =>
+                        ((field === 'phone') ||
+                            (field === 'address') ||
+                            (field === 'email')) &&
+                        <p
+                            key={field}
+                            id={field} >
+                            &#183; {headerData[field]} &#183;
                         </p>
-                        
-                    }
                 )}
                 {Object.keys(headerData).map(
-                    field => 
-                    {
-                        return field !== 'name' &&
-                        ((field === 'Github') || 
-                        (field === 'LinkedIn')) && 
-                        <a  
-                        key={field}
-                        href={headerData[field]}>
-                            &#183; {field}  &#183; 
+                    field =>
+                        ((field === 'Github') ||
+                            (field === 'LinkedIn')) &&
+                        <a
+                            key={field}
+                            href={headerData[field]}>
+                            &#183; {field}  &#183;
                         </a>
-                    }
                 )}
             </div>
         </div>
