@@ -1,26 +1,29 @@
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { Tenure } from '../utils.components.jsx'
 
 function ProfExperienceDisplay({ jobData }) {
     return (
-        <>
-            <h3>Professional Experience</h3>
-            <div id='professional-display'>
-                {jobData.map(job => job.display &&
-                    <div className={'prof-header'} key={`prof-header: ${job.id}`}>
-                        <p className="company">{job.company}</p>
-                        <p className="role">{job.role}</p>
-                        <p className="startDate">{job.startDate}</p>
-                        <p className="endDate">{job.endDate}</p>
-                        <ul>
-                            {job.feats.map(feat =>
-                                <li key={`feat-display: ${feat.id}`}>
-                                    {feat.text}
-                                </li>)}
-                        </ul>
+        <div className='job-display'>
+            <h3 className="h3-display">PROFESSIONAL EXPERIENCE</h3>
+            <hr />
+            {jobData.map(job => job.display &&
+                <div key={`job-display: ${job.id}`}>
+                    <div className='job-display-header'>
+                        <div className='company-role'>
+                            <p className='company' >{job['company']}&nbsp;</p>
+                            <p className='role' >{job['role']}&nbsp;</p>
+                        </div>
+                        <Tenure job={job} />
                     </div>
-                )}
-            </div>
-        </>
+                    <ul>
+                        {job.feats.map(feat =>
+                            <li key={`feat-display: ${feat.id}`}>
+                                {feat.text}
+                            </li>)}
+                    </ul>
+                </div>
+            )}
+        </div>
     )
 }
 

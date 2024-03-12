@@ -1,7 +1,7 @@
 /* fontPT x (4/3) = font px */
 
 /**** HEADER */
-/* FORM */
+/* FORM & INPUT DISPLAY*/
 #header-form, #inputDisplay {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -43,11 +43,12 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
+    border-bottom: solid;
+    height: 70px;
 }
 
 h1#name {
     font-size: 32px;
-    padding: 2px;
 }
 
 #headerInfo {

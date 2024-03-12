@@ -1,11 +1,22 @@
 import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
+
 
 function setDefaultDueDate() {
     const today = new Date;
     const tomorrow = new Date();
     tomorrow.setDate(today.getDate());
     return format(tomorrow, 'yyyy-MM-dd');
+}
+
+export function Tenure({ job }) {
+    const start = format(job['startDate'], 'MMM yyyy');
+    const end = format(job['endDate'], 'MMM yyyy');
+    return (
+        <p id='tenure' className='tenure'>{`${start} - ${end}`}</p>
+    )
+
 }
 
 export function Feat() {
@@ -16,23 +27,6 @@ export function Feat() {
 }
 
 function Job(company, role, startDate, endDate) {
-    // function addFeat() {
-    //     return [...feats, Feat()]
-    // }
-
-    // function updateFeat(id, text) {
-    //     return feats.map(feat => {
-    //         if (feat.id === id) {
-    //             feat.text = text;
-    //         }
-    //         return feat
-    //     })
-    // }
-
-    // function deleteFeat(id) {
-    //     return feats.filter(feat => feat.id !== id)
-    // }
-
     const goodStartDate = startDate !== '' ? startDate : setDefaultDueDate();
     const goodEndDate = endDate !== '' ? endDate : setDefaultDueDate();
     let feats = [];
@@ -44,11 +38,10 @@ function Job(company, role, startDate, endDate) {
         startDate: goodStartDate,
         endDate: goodEndDate,
         feats,
-        // addFeat,
-        // updateFeat,
-        // deleteFeat,
         display: true,
     }
 }
+
+Tenure.propTypes = { job: PropTypes.object }
 
 export default Job;

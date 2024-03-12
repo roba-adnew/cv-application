@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import FeatsForm from './Feats/Feats.jsx';
+import { Tenure } from '../../utils.components.jsx'
+
 import { BiSolidHide, BiSolidShow, BiSolidCheckSquare, BiSolidEdit, BiX } from "react-icons/bi";
 
 
@@ -52,22 +54,20 @@ function JobInput({ job, updateJob, switchDisplay }) {
 
 function JobInputDisplay({ job, switchDisplay }) {
     return (
-        <div className='job-display'>
-            {Object.keys(job).map(field =>
-                (field !== 'feats' && field !== 'display' && field !== 'id') &&
-                <p className="display" key={`${field}}: ${job.id}`}>
-                    {job[field]}
-                </p>
-            )}
-            {Object.keys(job).map(field =>
-                field === 'feats' &&
-                job[field].map(
-                    feat =>
-                        <p className="display" key={`feat: ${feat.id}`}>
+        <div className='parent-job-display'>
+            <div className='job-display'>
+                <div className='job-display-header'>
+                    <p className='company' >{job['company']}&nbsp;</p>
+                    <p className='role' >{job['role']}&nbsp;</p>
+                    <Tenure job={job} />
+                </div>
+                <ul>
+                    {job.feats.map(feat =>
+                        <li key={`feat-display: ${feat.id}`}>
                             {feat.text}
-                        </p>
-                )
-            )}
+                        </li>)}
+                </ul>
+            </div>
             <button
                 onClick={(e) => {
                     e.preventDefault();

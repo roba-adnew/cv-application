@@ -1,5 +1,13 @@
 /* fontPT x (4/3) = font px */
 
+* {
+    font-size: 12px;
+}
+
+h4 {
+    font-size: 16px; 
+}
+
 /* PROFESSIONAL EXPERIENCE FORM */ 
 
 #add-experience {
@@ -131,6 +139,50 @@ label {
 
 /* INPUT DISPLAY */
 
+.parent-job-display {
+    display: grid;
+    grid-template-columns: 90% 10%;
+}
 
 
-/* DISPLAY */
+/* INPUT AND RESUME DISPLAY */
+
+.job-display {
+    padding-top: 5px;
+}
+
+.job-display h3 {
+    font-size: 16px;
+    font-weight: 100;
+    margin: 0px;
+}
+
+.job-display-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.company-role {
+    display: flex;
+    flex-direction: row;
+}
+
+.job-display-header .tenure {
+    align-self: flex-end;
+}
+
+.job-display-header .company,
+.job-display-header .tenure
+ {
+    font-weight: bolder;
+}
+
+.job-display-header .role {
+    font-style: italic;
+}
+
+.border {
+    border-top: 2cap;
+    border-top: black;
+}

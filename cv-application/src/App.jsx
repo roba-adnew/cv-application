@@ -25,11 +25,11 @@ function App() {
 	}
 
 	function addNewJob() {
-		setJobs((jobsPrior) => [...jobsPrior, Job()]);
+		setJobs([...jobs, Job()]);
 	}
 
 	function updateJob(id, field, value) {
-		setJobs(jobsPrior => jobsPrior.map(job => {
+		setJobs(jobs.map(job => {
 			if (id !== job.id) {
 				return job
 			}
