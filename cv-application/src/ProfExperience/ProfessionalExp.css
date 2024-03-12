@@ -161,6 +161,7 @@ label {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding-top: 0px;
 }
 
 .company-role {
@@ -185,4 +186,9 @@ label {
 .border {
     border-top: 2cap;
     border-top: black;
+}
+
+ul {
+    padding-left: 15px;
+    margin-top: 0px;
 }
