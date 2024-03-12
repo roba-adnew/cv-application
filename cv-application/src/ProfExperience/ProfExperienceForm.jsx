@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import JobForm from './JobForm/JobForm.jsx';
+import './ProfessionalExp.css'
 
 function ProfExperienceForm({ jobs, addNewJob, updateJob, deleteJob }) {
     return (
-        <div>
+        <div id='professional-form'>
             <h3>Professional Experience</h3>
             {jobs.map(job => 
                 <JobForm 
@@ -13,13 +14,15 @@ function ProfExperienceForm({ jobs, addNewJob, updateJob, deleteJob }) {
                     deleteJob={deleteJob}
                 />
             )}
-            <button onClick={(e) => {
-                e.preventDefault();
-                addNewJob()
-            }}>
+            <button 
+                id='add-experience'
+                onClick={(e) => {
+                    e.preventDefault();
+                    addNewJob()
+                }}
+            >
                 Add a current or past experience
             </button>
-
         </div>
     )   
 }

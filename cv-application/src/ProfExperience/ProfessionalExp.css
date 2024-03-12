@@ -1,0 +1,136 @@
+/* fontPT x (4/3) = font px */
+
+/* PROFESSIONAL EXPERIENCE FORM */ 
+
+#add-experience {
+    margin-top: 10px;
+    width: 100%;
+    background-color: rgb(25, 25, 74);
+    color: white;
+    font-size: 15px;
+}
+
+#parent-form {
+    display: grid;
+    grid-template-columns: 10% 90%;
+    margin: 0px;
+}
+
+/* SINGLE JOB FORM */
+
+#finalize-job-button {
+    float: right;
+    height: 100%;
+    margin: 0px;
+    font-size: 30px;
+}
+
+#parent-form-buttons {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 15px 0px 0px;
+    
+}
+
+#parent-form-buttons button {
+    flex-grow: 1;
+    margin: 2px;
+    font-size: 20px;
+}
+
+
+#parent-form-buttons .delete{
+    background-color: rgb(255, 115, 115);
+    color: white; 
+}
+
+
+#job-form {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    margin: 0px;
+}
+
+#finalize-job-button {
+    float: right;
+    height: 100%;
+    margin: 0px;
+}
+
+
+label {
+    display: block;
+}
+
+.job-data {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) 3%;
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 8px;
+    font-size: 12px;
+}
+
+.company {
+    grid-column: 1 / 3;
+    grid-row: 1;
+}
+
+.role {
+    grid-column: 3 / 5;
+    grid-row: 1;
+}
+
+.startDate {
+    grid-column: 1 / 3;
+    grid-row: 2;
+}
+
+.endDate {
+    grid-column: 3 / 5;
+    grid-row: 2;
+}
+
+.job-data div input {
+    width: 98%;
+    height: 15px
+}
+
+.finalize-job-button {
+    grid-column: 1 / 5; 
+    grid-row: 4;
+}
+
+/* FEATS FORM */
+
+#feats-form {
+    display: flex;
+    width: 96%;
+    flex-direction: column;
+    font-size: 12px;
+}
+
+#feats-instructions {
+    padding: 10px 0px 0px 0px;
+}
+
+.feat-div {
+    display: flex;
+    flex-direction: row;
+    padding: 5px 0px 5px 0px;
+}
+
+.feat-div input {
+    width: 90%;
+    float: left;
+}
+
+.feat-div button {
+    width: 10%;
+    float: right;
+}
+
+/* INPUT DISPLAY */
+
+
+
+/* DISPLAY */

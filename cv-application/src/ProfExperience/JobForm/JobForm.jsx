@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import FeatsForm from './Feats/Feats.jsx';
+import { BiSolidHide, BiSolidShow, BiSolidCheckSquare, BiSolidEdit, BiX } from "react-icons/bi";
 
 
 function JobInput({ job, updateJob, switchDisplay }) {
@@ -12,36 +13,46 @@ function JobInput({ job, updateJob, switchDisplay }) {
     }
 
     return (
-        <form>
-            <div key={`job-input: ${job.id}`}>
-                {Object.keys(tagAttributes).map((field) =>
-                    <input
-                        key={field + ":" + job.id}
-                        id={field}
-                        type={field.includes('Date') ? 'date' : 'text'}
-                        value={job[field]}
-                        placeholder={tagAttributes[field]}
-                        onChange={(e) => {
-                            e.preventDefault();
-                            updateJob(job.id, field, e.target.value)
-                        }}
-                    ></input>
-                )}
-                <FeatsForm job={job} updateJob={updateJob} />
-                <button onClick={(e) => {
+        <div id='job-form'>
+            <div>
+                <div className='job-data' key={`job-data: ${job.id}`}>
+                    {Object.keys(tagAttributes).map((field) =>
+                        <div className={`${field}`} key={`${field}: ${job.id}`}>
+                            <label>{tagAttributes[field]}</label>
+                            <input
+                                type={field.includes('Date') ? 'date' : 'text'}
+                                className={field}
+                                value={job[field]}
+                                placeholder={tagAttributes[field]}
+                                onChange={(e) => {
+                                    e.preventDefault();
+                                    updateJob(job.id, field, e.target.value)
+                                }}
+                            ></input>
+                        </div>
+                    )}
+                </div>
+                <FeatsForm
+                    job={job}
+                    updateJob={updateJob}
+                />
+            </div>
+            <button
+                id='finalize-job-button'
+                onClick={(e) => {
                     e.preventDefault();
                     switchDisplay();
-                }}>
-                    Submit
-                </button>
-            </div>
-        </form>
+                }}
+            >
+                <BiSolidCheckSquare />
+            </button>
+        </div>
     )
 }
 
 function JobInputDisplay({ job, switchDisplay }) {
     return (
-        <div key={`job-display: ${job.id}`}>
+        <div className='job-display'>
             {Object.keys(job).map(field =>
                 (field !== 'feats' && field !== 'display' && field !== 'id') &&
                 <p className="display" key={`${field}}: ${job.id}`}>
@@ -63,7 +74,7 @@ function JobInputDisplay({ job, switchDisplay }) {
                     switchDisplay();
                 }}
             >
-                Edit
+                <BiSolidEdit />
             </button>
         </div>
     )
@@ -79,37 +90,42 @@ function JobForm({ job, updateJob, deleteJob }) {
     const shouldRenderDisplay = !shouldRenderForm;
 
     return (
-        <>
-            {shouldRenderForm &&
-                <JobInput
-                    job={job}
-                    updateJob={updateJob}
-                    switchDisplay={switchDisplay}
-                />
-            }
-            {shouldRenderDisplay &&
-                <JobInputDisplay
-                    job={job}
-                    switchDisplay={switchDisplay}
-                />
-            }
-            <button
-                onClick={(e) => {
-                    e.preventDefault();
-                    updateJob(job.id, 'display', !job.display);
-                }}
-            >
-                {job['display'] ? 'Exclude from resume' : 'Include in resume'}
-            </button>
-            <button
-                onClick={(e) => {
-                    e.preventDefault();
-                    deleteJob(job.id);
-                }}
-            >
-                Delete Job
-            </button>
-        </>
+        <div id='parent-form'>
+            <div id='parent-form-buttons'>
+                <button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        updateJob(job.id, 'display', !job.display);
+                    }}
+                >
+                    {job['display'] ? <BiSolidHide /> : <BiSolidShow />}
+                </button>
+                <button
+                    className='delete'
+                    onClick={(e) => {
+                        e.preventDefault();
+                        deleteJob(job.id);
+                    }}
+                >
+                    <BiX />
+                </button>
+            </div>
+            <div id='parent-form-or-display'>
+                {shouldRenderForm &&
+                    <JobInput
+                        job={job}
+                        updateJob={updateJob}
+                        switchDisplay={switchDisplay}
+                    />
+                }
+                {shouldRenderDisplay &&
+                    <JobInputDisplay
+                        job={job}
+                        switchDisplay={switchDisplay}
+                    />
+                }
+            </div>
+        </div>
     )
 }
 

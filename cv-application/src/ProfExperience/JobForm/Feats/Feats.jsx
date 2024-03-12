@@ -2,13 +2,20 @@ import PropTypes from 'prop-types'
 import { Feat } from '../../../utils.components.jsx'
 
 function FeatsForm({ job, updateJob }) {
+    const willDisplayLabel = job.feats.length > 0 ? true : false;
 
     return (
-        <>
+        <div id='feats-form'>
+            {willDisplayLabel &&
+                <label id='feats-instructions'>
+                    Add relevant accomplishments 
+                    and/or descriptions for this role
+                </label>
+            }
             {job.feats.map(feat => (
-                <div key={'form: ' + feat.id}>
+                <div className='feat-div' key={`form: ${feat.id}`}>
+
                     <input
-                        className='describe'
                         onChange={(e) => {
                             e.preventDefault();
                             const updatedFeats = job.feats.map(ft => {
@@ -29,22 +36,21 @@ function FeatsForm({ job, updateJob }) {
                         )
                         updateJob(job.id, 'feats', updatedFeats);
                     }}>
-                        Delete descriptor
+                        &#x2716;
                     </button>
                 </div>
             ))}
             <button
-                id='new-description-button'
+                className='new-description-button'
                 onClick={(e) => {
                     e.preventDefault();
                     const updatedFeats = [...job.feats, Feat()];
                     updateJob(job.id, 'feats', updatedFeats)
                 }}>
-                Add a descriptions and/or accomplishment
+                Add detail
             </button>
-        </>
+        </div>
     )
-
 }
 
 FeatsForm.propTypes = {
