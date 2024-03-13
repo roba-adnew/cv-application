@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
-import DegreeForm from './DegreeForm.jsx'
+import DegreeForm from './DegreeForm.jsx';
+import './Education.css'
 
 function EducationForm({ education, addDegree, updateDegree,deleteDegree }) {
 
     return (
-        <div id='education-form'>
+        <div id='parent-education-form'>
             <h3>Education</h3>
             {education.map(degree => 
                 <DegreeForm 

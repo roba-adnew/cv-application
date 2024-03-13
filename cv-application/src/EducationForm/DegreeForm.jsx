@@ -13,24 +13,26 @@ function DegreeInput({ degree, updateDegree, switchDisplay }) {
     }
 
     return (
-        <div>
-            {Object.keys(tagAttributes).map(field =>
-                <div key={`degree-form: ${Math.random()}`}>
-                    <label>{tagAttributes[field]}</label>
-                    <input
-                        type={field.includes('Date') ? 'date' : 'text'}
-                        className={field}
-                        value={degree[field]}
-                        placeholder={tagAttributes[field]}
-                        onChange={(e) => {
-                            e.preventDefault();
-                            updateDegree(degree.id, field, e.target.value)
-                        }}
-                    ></input>
-                </div>
-            )}
+        <div id='degree-form'>
+            <div className='degree-data'>
+                {Object.keys(tagAttributes).map(field =>
+                    <div className={`${field}`} key={`degree-form: ${degree.id}`}>
+                        <label>{tagAttributes[field]}</label>
+                        <input
+                            type={field.includes('Date') ? 'date' : 'text'}
+                            className={field}
+                            value={degree[field]}
+                            placeholder={tagAttributes[field]}
+                            onChange={(e) => {
+                                e.preventDefault();
+                                updateDegree(degree.id, field, e.target.value)
+                            }}
+                        ></input>
+                    </div>
+                )}
+            </div>
             <button
-                id='finalize-job-button'
+                id='finalize-degree-button'
                 onClick={(e) => {
                     e.preventDefault();
                     switchDisplay();
@@ -85,8 +87,8 @@ function DegreeForm({ degree, updateDegree, deleteDegree }) {
     const shouldRenderDisplay = !shouldRenderForm;
 
     return (
-        <div id='parent-form'>
-            <div id='parent-form-button'>
+        <div id='parent-degree-form'>
+            <div id='degree-form-button'>
                 <button
                     className='delete'
                     onClick={(e) => {
