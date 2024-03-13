@@ -2,8 +2,10 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import FeatsForm from './Feats/Feats.jsx';
 import { Tenure } from '../../utils.components.jsx'
-import { BiSolidHide, BiSolidShow, BiSolidCheckSquare, BiSolidEdit, BiX } from "react-icons/bi";
-
+import { BiSolidHide, 
+    BiSolidShow, 
+    BiSolidCheckSquare, 
+    BiSolidEdit, BiX } from "react-icons/bi";
 
 function JobInput({ job, updateJob, switchDisplay }) {
     const tagAttributes = {
@@ -22,7 +24,6 @@ function JobInput({ job, updateJob, switchDisplay }) {
                             <label>{tagAttributes[field]}</label>
                             <input
                                 type={field.includes('Date') ? 'date' : 'text'}
-                                className={field}
                                 value={job[field]}
                                 placeholder={tagAttributes[field]}
                                 onChange={(e) => {
@@ -58,7 +59,10 @@ function JobInputDisplay({ job, switchDisplay }) {
                 <div className='job-display-header'>
                     <p className='company' >{job['company']}&nbsp;</p>
                     <p className='role' >{job['role']}&nbsp;</p>
-                    <Tenure job={job} />
+                    <Tenure 
+                        startDate={job['startDate']} 
+                        endDate={job['endDate']} 
+                    />
                 </div>
                 <ul>
                     {job.feats.map(feat =>

@@ -10,9 +10,9 @@ function setDefaultDueDate() {
     return format(tomorrow, 'yyyy-MM-dd');
 }
 
-export function Tenure({ job }) {
-    const start = format(job['startDate'], 'MMM yyyy');
-    const end = format(job['endDate'], 'MMM yyyy');
+export function Tenure({ startDate, endDate }) {
+    const start = format(startDate, 'MMM yyyy');
+    const end = format(endDate, 'MMM yyyy');
     return (
         <p id='tenure' className='tenure'>{`${start} - ${end}`}</p>
     )
@@ -26,9 +26,9 @@ export function Feat() {
     }
 }
 
-function Job(company, role, startDate, endDate) {
-    const goodStartDate = startDate !== '' ? startDate : setDefaultDueDate();
-    const goodEndDate = endDate !== '' ? endDate : setDefaultDueDate();
+export function Job(company, role, startDate, endDate) {
+    const goodStartDate = startDate ? startDate : setDefaultDueDate();
+    const goodEndDate = endDate ? endDate : setDefaultDueDate();
     let feats = [];
 
     return {
@@ -42,6 +42,22 @@ function Job(company, role, startDate, endDate) {
     }
 }
 
-Tenure.propTypes = { job: PropTypes.object }
 
-export default Job;
+export function Degree(type, area, school, startDate, endDate) {
+    const goodStartDate = startDate ? startDate : setDefaultDueDate();
+    const goodEndDate = endDate ? endDate : setDefaultDueDate();
+
+    return {
+        id: uuidv4(),
+        type,
+        area,
+        school,
+        startDate: goodStartDate,
+        endDate: goodEndDate
+    }
+}
+
+Tenure.propTypes = {
+    startDate: PropTypes.string,
+    endDate: PropTypes.string
+}

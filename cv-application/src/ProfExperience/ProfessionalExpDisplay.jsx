@@ -13,7 +13,10 @@ function ProfExperienceDisplay({ jobData }) {
                             <p className='company' >{job['company']}&nbsp;</p>
                             <p className='role' >{job['role']}&nbsp;</p>
                         </div>
-                        <Tenure job={job} />
+                        <Tenure 
+                            startDate={job['startDate']} 
+                            endDate={job['endDate']} 
+                        />
                     </div>
                     <ul>
                         {job.feats.map(feat =>

@@ -1,11 +1,4 @@
-import Job from './utils.components.jsx';
-
-const defaultJob = Job(
-    'Meta',
-    'Product Partnerships Manager',
-    '',
-    '',
-)
+import { Job, Degree } from './utils.components.jsx';
 
 export const defaultHeader = {
     name: 'Roba Adnew',
@@ -16,4 +9,6 @@ export const defaultHeader = {
     Github: 'https://github.com/roba-adnew'
 }
 
-export default defaultJob;
+export const defaultJob = Job('Meta', 'Product Partnerships Manager');
+
+export const defaultDegree = Degree('BoS','Math','University of Maryland');
