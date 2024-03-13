@@ -1,0 +1,22 @@
+#skills-list-display {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+#new-skill-button {
+    margin-top: 10px;
+    width: 100%;
+    background-color: rgb(25, 25, 74);
+    color: white;
+    font-size: 15px;
+}
+
+input {
+    width: 90%;
+}
+
+.delete-skill {
+    background-color: rgb(255, 115, 115);
+    color: white; 
+}
