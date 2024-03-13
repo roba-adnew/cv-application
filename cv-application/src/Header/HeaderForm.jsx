@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Header.css';
+import { BiSolidCheckSquare, BiSolidEdit } from "react-icons/bi";
 
-function HeaderInput({
-    header,
-    updateHeader,
-    switchDisplay,
-    submitHandler }) {
+function HeaderInput({ header, setHeader, switchDisplay}) {
     const tagAttributes =
     {
         name: {
@@ -63,7 +60,12 @@ function HeaderInput({
                             {...tagAttributes[field]['required']
                             && { required: true }}
                             value={header[field]}
-                            onChange={updateHeader}
+                            onChange={(e) => {
+                                e.preventDefault();
+                                const value = e.target.value;
+                                const field = e.target.id
+                                setHeader({ ...header, [field]: value })}
+                            }
                         >
                         </input>
                     </div>
@@ -71,19 +73,15 @@ function HeaderInput({
                 )}
                 <button onClick={() => {
                     switchDisplay()
-                    submitHandler(header)
                 }}>
-                    Submit
+                    <BiSolidCheckSquare />
                 </button>
             </form>
         </>
     )
 }
 
-function HeaderInputDisplay({
-    header,
-    switchDisplay
-}) {
+function HeaderInputDisplay({ header, switchDisplay }) {
 
     return (
         <>
@@ -91,38 +89,16 @@ function HeaderInputDisplay({
                 {Object.keys(header).map(field =>
                     <p className="display" key={field}>{header[field]}</p>
                 )}
-                <button onClick={switchDisplay}>Edit</button>
+                <button onClick={switchDisplay}>
+                    <BiSolidEdit />
+                </button>
             </div>
         </>
     )
 }
 
-function HeaderForm({ submitHandler }) {
+function HeaderForm({ header, setHeader, submitHandler }) {
     const [shouldRenderForm, setShouldRenderForm] = useState(true);
-    // {
-    //     name: '',
-    //     phone: '',
-    //     email: '',
-    //     city: '',
-    //     linkedin: '',
-    //     github: ''
-    // }
-    const [header, setHeader] = useState(() => ({
-        name: 'Roba Adnew',
-        email: 'roba.adnew@gmail.com',
-        phone: '240-602-0279',
-        city: 'Brooklyn, NY',
-        LinkedIn: 'https://www.linkedin.com/in/roba-adnew/',
-        Github: 'https://github.com/roba-adnew'
-    }))
-
-
-    function updateHeader(e) {
-        e.preventDefault();
-        const value = e.target.value;
-        const field = e.target.id;
-        setHeader({ ...header, [field]: value });
-    }
 
     function switchDisplay() { setShouldRenderForm(!shouldRenderForm) }
 
@@ -134,7 +110,7 @@ function HeaderForm({ submitHandler }) {
             {shouldRenderForm &&
                 <HeaderInput
                     header={header}
-                    updateHeader={updateHeader}
+                    setHeader={setHeader}
                     shouldDisplay={shouldRenderForm}
                     switchDisplay={switchDisplay}
                     submitHandler={submitHandler}
@@ -151,13 +127,19 @@ function HeaderForm({ submitHandler }) {
     )
 }
 
-HeaderForm.propTypes = { submitHandler: PropTypes.func }
+HeaderForm.propTypes = { 
+    header: PropTypes.object,
+    setHeader: PropTypes.func,
+    submitHandler: PropTypes.func 
+}
+
 HeaderInput.propTypes = {
     header: PropTypes.object,
-    updateHeader: PropTypes.func,
+    setHeader: PropTypes.func,
     switchDisplay: PropTypes.func,
     submitHandler: PropTypes.func
 }
+
 HeaderInputDisplay.propTypes = {
     header: PropTypes.object,
     switchDisplay: PropTypes.func

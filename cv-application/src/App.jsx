@@ -4,25 +4,12 @@ import HeaderDisplay from './Header/HeaderDisplay.jsx';
 import ProfExperienceForm from './ProfExperience/ProfExperienceForm.jsx';
 import ProfExperienceDisplay from './ProfExperience/ProfessionalExpDisplay.jsx';
 import Job from './utils.components.jsx';
-import defaultJob from './utils.constants.jsx';
+import defaultJob, { defaultHeader } from './utils.constants.jsx';
 import './App.css';
 
 function App() {
-	const [header, setHeader] = useState(() => ({
-		name: '',
-		phone: '',
-		email: '',
-		address: '',
-		linkedin: '',
-		github: ''
-	}));
-
-
+	const [header, setHeader] = useState(() => (defaultHeader));
 	const [jobs, setJobs] = useState([defaultJob])
-
-	function headerSubmitHandler(updatedHeader) {
-		setHeader({ ...updatedHeader })
-	}
 
 	function addNewJob() {
 		setJobs([...jobs, Job()]);
@@ -50,7 +37,10 @@ function App() {
 		<>
 			<div id='app'>
 				<div id='form'>
-					<HeaderForm submitHandler={headerSubmitHandler} />
+					<HeaderForm
+						header={header}
+						setHeader={setHeader}
+					/>
 					<ProfExperienceForm
 						jobs={jobs}
 						addNewJob={addNewJob}

@@ -1,5 +1,4 @@
 import Job from './utils.components.jsx';
-// import { v4 as uuidv4 } from 'uuid';
 
 const defaultJob = Job(
     'Meta',
@@ -7,5 +6,14 @@ const defaultJob = Job(
     '',
     '',
 )
+
+export const defaultHeader = {
+    name: 'Roba Adnew',
+    email: 'roba.adnew@gmail.com',
+    phone: '240-602-0279',
+    city: 'Brooklyn, NY',
+    LinkedIn: 'https://www.linkedin.com/in/roba-adnew/',
+    Github: 'https://github.com/roba-adnew'
+}
 
 export default defaultJob;
