@@ -16,7 +16,7 @@ function DegreeInput({ degree, updateDegree, switchDisplay }) {
         <div id='degree-form'>
             <div className='degree-data'>
                 {Object.keys(tagAttributes).map(field =>
-                    <div className={`${field}`} key={`degree-form: ${degree.id}`}>
+                    <div className={`${field}`} key={`${field}: ${degree.id}`}>
                         <label>{tagAttributes[field]}</label>
                         <input
                             type={field.includes('Date') ? 'date' : 'text'}
