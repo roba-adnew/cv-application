@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './Header.css';
 import { BiSolidCheckSquare, BiSolidEdit } from "react-icons/bi";
 
-function HeaderInput({ header, setHeader, switchDisplay}) {
+function HeaderInput({ header, setHeader, switchDisplay }) {
     const tagAttributes =
     {
         name: {
@@ -48,8 +48,8 @@ function HeaderInput({ header, setHeader, switchDisplay}) {
     }
 
     return (
-        <>
-            <form id="header-form">
+        <div id="header-form-parent">
+            <div id="header-form">
                 {Object.keys(header).map((field) =>
                     <div key={field}>
                         <label>{tagAttributes[field]['placeholder']}</label>
@@ -64,20 +64,23 @@ function HeaderInput({ header, setHeader, switchDisplay}) {
                                 e.preventDefault();
                                 const value = e.target.value;
                                 const field = e.target.id
-                                setHeader({ ...header, [field]: value })}
+                                setHeader({ ...header, [field]: value })
+                            }
                             }
                         >
                         </input>
                     </div>
 
                 )}
-                <button onClick={() => {
-                    switchDisplay()
-                }}>
-                    <BiSolidCheckSquare />
-                </button>
-            </form>
-        </>
+            </div>
+            <button onClick={(e) => {
+                e.preventDefault();
+                switchDisplay();
+            }}>
+                <BiSolidCheckSquare />
+            </button>
+
+        </div>
     )
 }
 
@@ -127,10 +130,10 @@ function HeaderForm({ header, setHeader, submitHandler }) {
     )
 }
 
-HeaderForm.propTypes = { 
+HeaderForm.propTypes = {
     header: PropTypes.object,
     setHeader: PropTypes.func,
-    submitHandler: PropTypes.func 
+    submitHandler: PropTypes.func
 }
 
 HeaderInput.propTypes = {

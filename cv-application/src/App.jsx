@@ -8,7 +8,6 @@ import { defaultHeader, defaultJob, defaultDegree } from './utils.constants.jsx'
 import EducationForm from './EducationForm/EducationForm.jsx';
 import EducationDisplay from './EducationForm/EducationDisplay.jsx';
 import SkillsForm from './Skills/SkillsForm.jsx';
-
 import './App.css';
 import SkillsDisplay from './Skills/SkillsDisplay.jsx';
 

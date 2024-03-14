@@ -2,6 +2,13 @@
 
 /**** HEADER */
 /* FORM & INPUT DISPLAY*/
+
+#header-form-parent {
+    display: grid;
+    grid-template-columns: 91% 1fr;
+}
+
+
 #header-form, #inputDisplay {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -23,12 +30,6 @@
 #header-form div{
     margin: 0px;
     padding: 0px
-}
-
-#header-form input {
-    padding: 5px;
-    width: 250px;
-    height: 20px
 }
 
 #header-form button, #inputDisplay button {
