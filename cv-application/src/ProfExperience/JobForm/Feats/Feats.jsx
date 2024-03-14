@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { Feat } from '../../../utils.components.jsx'
+import { BiX } from "react-icons/bi";
 
 function FeatsForm({ job, updateJob }) {
     const willDisplayLabel = job.feats.length > 0 ? true : false;
@@ -14,7 +15,6 @@ function FeatsForm({ job, updateJob }) {
             }
             {job.feats.map(feat => (
                 <div className='feat-div' key={`form: ${feat.id}`}>
-
                     <input
                         onChange={(e) => {
                             e.preventDefault();
@@ -36,7 +36,7 @@ function FeatsForm({ job, updateJob }) {
                         )
                         updateJob(job.id, 'feats', updatedFeats);
                     }}>
-                        &#x2716;
+                        <BiX />
                     </button>
                 </div>
             ))}

@@ -57,6 +57,13 @@ export function Degree(type, area, school, startDate, endDate) {
     }
 }
 
+export function Skill() {
+    return {
+        id: uuidv4(),
+        text: '',
+    }
+}
+
 Tenure.propTypes = {
     startDate: PropTypes.string,
     endDate: PropTypes.string

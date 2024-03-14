@@ -7,13 +7,16 @@ import { Job, Degree } from './utils.components.jsx';
 import { defaultHeader, defaultJob, defaultDegree } from './utils.constants.jsx';
 import EducationForm from './EducationForm/EducationForm.jsx';
 import EducationDisplay from './EducationForm/EducationDisplay.jsx';
+import SkillsForm from './Skills/SkillsForm.jsx';
 
 import './App.css';
+import SkillsDisplay from './Skills/SkillsDisplay.jsx';
 
 function App() {
 	const [header, setHeader] = useState(() => (defaultHeader));
 	const [jobs, setJobs] = useState([defaultJob]);
-	const [education, setEducation] = useState([defaultDegree])
+	const [education, setEducation] = useState([defaultDegree]);
+	const [skills, setSkills] = useState([]);
 
 	function addNewJob() {
 		setJobs([...jobs, Job()]);
@@ -75,11 +78,16 @@ function App() {
 						updateDegree={updateDegree}
 						deleteDegree={deleteDegree}
 					/>
+					<SkillsForm 
+						skills={skills}
+						setSkills={setSkills}
+					/>
 				</div>
 				<div id='display'>
 					<HeaderDisplay headerData={header} />
 					<ProfExperienceDisplay jobData={jobs} />
 					<EducationDisplay educationData={education} />
+					<SkillsDisplay skillsData={skills} />
 				</div>
 			</div>
 		</>
