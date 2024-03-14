@@ -48,6 +48,7 @@
 
 h1#name {
     font-size: 32px;
+    font-weight: 100;
 }
 
 #headerInfo {

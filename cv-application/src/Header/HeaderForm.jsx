@@ -109,7 +109,7 @@ function HeaderForm({ header, setHeader, submitHandler }) {
 
     return (
         <div>
-            <h3>Header</h3>
+            <h3>HEADER</h3>
             {shouldRenderForm &&
                 <HeaderInput
                     header={header}

@@ -5,7 +5,7 @@ import './ProfessionalExp.css'
 function ProfExperienceForm({ jobs, addNewJob, updateJob, deleteJob }) {
     return (
         <div id='professional-form'>
-            <h3>Professional Experience</h3>
+            <h3>PROFESSIONAL EXPERIENCE</h3>
             {jobs.map(job => 
                 <JobForm 
                     key={`job-container: ${job.id}`} 

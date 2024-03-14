@@ -61,6 +61,7 @@ function App() {
 		<>
 			<div id='app'>
 				<div id='form'>
+					<h1>Resume Builder</h1>
 					<HeaderForm
 						header={header}
 						setHeader={setHeader}

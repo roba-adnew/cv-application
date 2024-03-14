@@ -6,7 +6,7 @@ function EducationForm({ education, addDegree, updateDegree,deleteDegree }) {
 
     return (
         <div id='parent-education-form'>
-            <h3>Education</h3>
+            <h3>EDUCATION</h3>
             {education.map(degree => 
                 <DegreeForm 
                     key={`degree-container: ${degree.id}`}
