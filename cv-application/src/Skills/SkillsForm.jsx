@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { BiX } from "react-icons/bi";
-import { Skill } from '../utils.components.jsx';
+import { Skill } from '../utils/functions.jsx';
 import './Skills.css';
 
 function SkillsForm({ skills, setSkills }) {

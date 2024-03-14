@@ -1,22 +1,11 @@
 import { format } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
-import PropTypes from 'prop-types';
-
 
 function setDefaultDueDate() {
     const today = new Date;
     const tomorrow = new Date();
     tomorrow.setDate(today.getDate());
     return format(tomorrow, 'yyyy-MM-dd');
-}
-
-export function Tenure({ startDate, endDate }) {
-    const start = format(startDate, 'MMM yyyy');
-    const end = format(endDate, 'MMM yyyy');
-    return (
-        <p id='tenure' className='tenure'>{`${start} - ${end}`}</p>
-    )
-
 }
 
 export function Feat() {
@@ -57,14 +46,10 @@ export function Degree(type, area, school, startDate, endDate) {
     }
 }
 
-export function Skill() {
+export function Skill(description) {
+    const goodDescription = description ? description : ''
     return {
         id: uuidv4(),
-        text: '',
+        text: goodDescription,
     }
-}
-
-Tenure.propTypes = {
-    startDate: PropTypes.string,
-    endDate: PropTypes.string
 }

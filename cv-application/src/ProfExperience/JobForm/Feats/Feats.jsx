@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Feat } from '../../../utils.components.jsx'
+import { Feat } from '../../../utils/functions.jsx'
 import { BiX } from "react-icons/bi";
 
 function FeatsForm({ job, updateJob }) {

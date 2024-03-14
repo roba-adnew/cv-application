@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import FeatsForm from './Feats/Feats.jsx';
-import { Tenure } from '../../utils.components.jsx'
+import { Tenure } from '../../utils/components.jsx';
 import { BiSolidHide, 
     BiSolidShow, 
     BiSolidCheckSquare, 

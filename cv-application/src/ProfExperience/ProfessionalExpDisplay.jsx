@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Tenure } from '../utils.components.jsx'
+import { Tenure } from '../utils/components.jsx'
 
 function ProfExperienceDisplay({ jobData }) {
     return (

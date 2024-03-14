@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Tenure } from '../utils.components';
+import { Tenure } from '../utils/components.jsx'
 
 function EducationDisplay({ educationData }) {
     return (
@@ -7,12 +7,17 @@ function EducationDisplay({ educationData }) {
             <h3 className="h3-display">EDUCATION</h3>
             <hr />
             {educationData.map(degree =>
-                <div className='degree-display' key={`degree-display: ${degree.id}`}>
+
+                <div
+                    className='degree-display'
+                    key={`degree-display: ${degree.id}`}
+                >
                     <div className='degree-display-header'>
-                        <p className='degree-name' >
-                            {degree.type} in&nbsp;
-                            {degree.area}
-                        </p>
+                        {(degree.type.length > 0 && degree.area.length > 0) &&
+                            <p className='degree-name' >
+                                {degree.type} in&nbsp;
+                                {degree.area}
+                            </p>}
                         <Tenure
                             startDate={degree['startDate']}
                             endDate={degree['endDate']}

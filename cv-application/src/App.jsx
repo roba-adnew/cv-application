@@ -3,8 +3,7 @@ import HeaderForm from './Header/HeaderForm.jsx';
 import HeaderDisplay from './Header/HeaderDisplay.jsx';
 import ProfExperienceForm from './ProfExperience/ProfExperienceForm.jsx';
 import ProfExperienceDisplay from './ProfExperience/ProfessionalExpDisplay.jsx';
-import { Job, Degree } from './utils.components.jsx';
-import { defaultHeader, defaultJob, defaultDegree } from './utils.constants.jsx';
+import { Job, Degree, Skill } from './utils/functions.jsx';
 import EducationForm from './EducationForm/EducationForm.jsx';
 import EducationDisplay from './EducationForm/EducationDisplay.jsx';
 import SkillsForm from './Skills/SkillsForm.jsx';
@@ -12,10 +11,23 @@ import './App.css';
 import SkillsDisplay from './Skills/SkillsDisplay.jsx';
 
 function App() {
-	const [header, setHeader] = useState(() => (defaultHeader));
-	const [jobs, setJobs] = useState([defaultJob]);
-	const [education, setEducation] = useState([defaultDegree]);
-	const [skills, setSkills] = useState([]);
+	const [header, setHeader] = useState(() => ({
+		name: 'Aubrey Saltine',
+		email: 'obo@6.com',
+		phone: '601-237-0179',
+		city: 'Brooklyn, NY',
+		LinkedIn: 'https://www.linkedin.com/in/lmarkidan/',
+		Github: 'https://github.com/terremoth'
+	}));
+	const [jobs, setJobs] = useState(() => [Job(
+		'The Human Race', 'Vibe Checker'
+	)]);
+	const [education, setEducation] = useState(() => [Degree(
+		'Masters of Universes', 
+		'Vibrations',
+		'Mother Nature University'
+	)]);
+	const [skills, setSkills] = useState(() => [Skill('checking vibes')]);
 
 	function addNewJob() {
 		setJobs([...jobs, Job()]);
@@ -72,13 +84,13 @@ function App() {
 						updateJob={updateJob}
 						deleteJob={deleteJob}
 					/>
-					<EducationForm 
+					<EducationForm
 						education={education}
 						addDegree={addDegree}
 						updateDegree={updateDegree}
 						deleteDegree={deleteDegree}
 					/>
-					<SkillsForm 
+					<SkillsForm
 						skills={skills}
 						setSkills={setSkills}
 					/>

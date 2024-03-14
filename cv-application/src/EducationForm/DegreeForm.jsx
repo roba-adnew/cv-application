@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Tenure } from '../utils.components.jsx'
+import { Tenure } from '../utils/components.jsx';
 import { BiSolidCheckSquare, BiSolidEdit, BiX } from 'react-icons/bi';
 
 function DegreeInput({ degree, updateDegree, switchDisplay }) {
